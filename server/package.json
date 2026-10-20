@@ -1,0 +1,38 @@
+{
+  "name": "gift-kro-server",
+  "version": "1.0.0",
+  "description": "GIFT KRO Backend API Server",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "lint": "eslint src/",
+    "lint:fix": "eslint src/ --fix",
+    "seed:admin": "node src/scripts/createAdmin.js",
+    "seed:products": "node src/scripts/seedProducts.js",
+    "test": "node test-production-readiness.js",
+    "test:admin": "node test-orders-admin.js",
+    "test:prod": "node test-production-readiness.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "express-rate-limit": "^7.4.1",
+    "helmet": "^8.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.8.2",
+    "multer": "^2.4.0",
+    "razorpay": "^2.9.8",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.15.0",
+    "eslint": "^9.15.0",
+    "globals": "^15.12.0",
+    "nodemon": "^3.1.7"
+  }
+}
