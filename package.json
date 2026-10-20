@@ -1,0 +1,23 @@
+{
+  "name": "gift-kro",
+  "version": "1.0.0",
+  "description": "GIFT KRO - High Performance E-Commerce Architecture with 24h Express Printing USP in Raipur",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently -n \"SERVER,CLIENT\" -c \"blue,magenta\" \"npm run dev:server\" \"npm run dev:client\"",
+    "dev:server": "npm --prefix server run dev",
+    "dev:client": "npm --prefix client run dev",
+    "start:server": "npm --prefix server start",
+    "start:client": "npm --prefix client start",
+    "build:client": "npm --prefix client run build",
+    "install:all": "npm install && npm --prefix server install && npm --prefix client install",
+    "lint": "concurrently -n \"SERVER,CLIENT\" -c \"blue,magenta\" \"npm --prefix server run lint\" \"npm --prefix client run lint\"",
+    "format": "prettier --write \"client/src/**/*.{js,jsx,json,css}\" \"server/src/**/*.{js,json}\" \"*.{json,md}\"",
+    "format:check": "prettier --check \"client/src/**/*.{js,jsx,json,css}\" \"server/src/**/*.{js,json}\" \"*.{json,md}\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0",
+    "prettier": "^3.3.3"
+  }
+}
