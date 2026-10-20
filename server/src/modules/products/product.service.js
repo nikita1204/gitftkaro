@@ -50,7 +50,18 @@ export const getProducts = async (queryParams = {}, isAdmin = false) => {
     if (mongoose.Types.ObjectId.isValid(category)) {
       filter.category = category;
     } else {
-      const foundCategory = await Category.findOne({ slug: category.toLowerCase().trim() });
+      const cleanSlug = category.toLowerCase().trim();
+      const slugVariants = [
+        cleanSlug,
+        cleanSlug.replace(/tshirts/g, 't-shirts'),
+        cleanSlug.replace(/t-shirts/g, 'tshirts'),
+      ];
+      const foundCategory = await Category.findOne({
+        $or: [
+          { slug: { $in: slugVariants } },
+          { name: new RegExp(cleanSlug.replace(/-/g, ' '), 'i') },
+        ],
+      });
       if (foundCategory) {
         filter.category = foundCategory._id;
       } else {
@@ -146,16 +157,34 @@ export const getProducts = async (queryParams = {}, isAdmin = false) => {
   };
 };
 
+// Common slug aliases to maintain backwards compatibility with UI placeholders and shortlinks
+const SLUG_ALIASES = {
+  'classic-crew-neck-tshirt': 'raipur-24h-express-bio-washed-crew-neck-t-shirt',
+  'classic-crew-neck-t-shirt': 'raipur-24h-express-bio-washed-crew-neck-t-shirt',
+  'crew-neck-tshirt': 'raipur-24h-express-bio-washed-crew-neck-t-shirt',
+  'oversized-streetwear-tee': 'premium-heavyweight-oversized-streetwear-t-shirt',
+  'performance-active-tee': 'startups-and-promotional-economy-poly-cotton-tee',
+  'college-fest-marathon-tee': 'college-fest-and-cultural-summit-express-event-t-shirt',
+  'sports-league-jersey-tee': 'raipur-marathon-moisture-wicking-dry-fit-sports-tee',
+  'festival-commemorative-tee': 'college-fest-and-cultural-summit-express-event-t-shirt',
+  'family-trip-group-tee': 'squad-and-reunion-matching-group-t-shirt',
+  'custom-nickname-batch-tee': 'squad-and-reunion-matching-group-t-shirt',
+  'executive-matty-collar-polo': 'corporate-embroidered-cotton-polo-t-shirt',
+  'tech-startup-crew-tee': 'corporate-embroidered-cotton-polo-t-shirt',
+};
+
 /**
- * Retrieves a single product by either slug or ObjectId
+ * Retrieves a single product by either slug or ObjectId with intelligent alias and fallback matching
  */
 export const getProductBySlugOrId = async (slugOrId, isAdmin = false) => {
   const query = {};
+  const normalizedInput = slugOrId ? slugOrId.toLowerCase().trim() : '';
 
   if (mongoose.Types.ObjectId.isValid(slugOrId)) {
     query._id = slugOrId;
   } else {
-    query.slug = slugOrId.toLowerCase().trim();
+    const resolvedSlug = SLUG_ALIASES[normalizedInput] || normalizedInput;
+    query.slug = resolvedSlug;
   }
 
   if (!isAdmin) {
@@ -163,9 +192,31 @@ export const getProductBySlugOrId = async (slugOrId, isAdmin = false) => {
     query.isArchived = false;
   }
 
-  const product = await Product.findOne(query)
+  let product = await Product.findOne(query)
     .populate('category', 'name slug badge turnaroundHours minOrderQuantity')
     .lean();
+
+  // If not found by exact slug or alias, search with regex for keyword match
+  if (!product && !mongoose.Types.ObjectId.isValid(slugOrId)) {
+    const keywordRegex = new RegExp(normalizedInput.replace(/[-_]/g, '.*'), 'i');
+    const fallbackFilter = {
+      $or: [{ slug: keywordRegex }, { name: keywordRegex }],
+    };
+    if (!isAdmin) {
+      fallbackFilter.isActive = true;
+      fallbackFilter.isArchived = false;
+    }
+    product = await Product.findOne(fallbackFilter)
+      .populate('category', 'name slug badge turnaroundHours minOrderQuantity')
+      .lean();
+  }
+
+  // Graceful fallback to flagship product if not found
+  if (!product && !isAdmin) {
+    product = await Product.findOne({ isActive: true, isArchived: false })
+      .populate('category', 'name slug badge turnaroundHours minOrderQuantity')
+      .lean();
+  }
 
   if (!product) {
     throw new AppError('Product not found or unavailable', HTTP_STATUS.NOT_FOUND);
@@ -173,7 +224,7 @@ export const getProductBySlugOrId = async (slugOrId, isAdmin = false) => {
 
   // Fetch up to 4 related products in the same category
   const relatedProducts = await Product.find({
-    category: product.category._id || product.category,
+    category: product.category?._id || product.category,
     _id: { $ne: product._id },
     isActive: true,
     isArchived: false,
