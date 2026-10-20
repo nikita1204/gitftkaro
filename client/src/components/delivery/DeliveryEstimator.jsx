@@ -125,15 +125,15 @@ export function DeliveryEstimator({
       className={`rounded-3xl bg-slate-900 border border-slate-800 p-5 sm:p-6 space-y-5 shadow-xl transition-all ${className}`}
     >
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
         <div className="flex items-center space-x-2.5">
-          <div className="w-9 h-9 rounded-xl bg-brand-500/10 border border-brand-500/30 flex items-center justify-center text-brand-400">
+          <div className="w-9 h-9 rounded-xl bg-brand-500/10 border border-brand-500/30 flex items-center justify-center text-brand-400 shrink-0">
             <Clock className="w-5 h-5 animate-pulse" />
           </div>
           <div>
-            <h3 className="text-sm font-black text-white flex items-center gap-1.5">
+            <h3 className="text-sm font-black text-white flex items-center gap-1.5 flex-wrap">
               <span>Raipur 24-Hour Delivery Eligibility</span>
-              <Sparkles className="w-3.5 h-3.5 text-brand-400" />
+              <Sparkles className="w-3.5 h-3.5 text-brand-400 shrink-0" />
             </h3>
             <p className="text-[11px] text-slate-400">
               Live estimated dispatch and delivery window for your location
@@ -141,14 +141,14 @@ export function DeliveryEstimator({
           </div>
         </div>
 
-        <Badge variant="brand" size="sm">
+        <Badge variant="brand" size="sm" className="self-start sm:self-auto shrink-0">
           Raipur Express Hub
         </Badge>
       </div>
 
       {/* Input Box */}
       <form onSubmit={handlePincodeSubmit} className="space-y-3">
-        <div className="flex gap-2">
+        <div className="flex flex-col xs:flex-row gap-2">
           <div className="relative flex-1">
             <MapPin className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
             <input
@@ -170,7 +170,7 @@ export function DeliveryEstimator({
           <button
             type="submit"
             disabled={isChecking}
-            className="px-4 py-2.5 rounded-xl bg-brand-500 hover:bg-brand-400 text-slate-950 text-xs font-black flex items-center space-x-1.5 transition-all shadow-md shadow-brand-500/20 disabled:opacity-50"
+            className="px-4 py-2.5 rounded-xl bg-brand-500 hover:bg-brand-400 text-slate-950 text-xs font-black flex items-center justify-center space-x-1.5 transition-all shadow-md shadow-brand-500/20 disabled:opacity-50 shrink-0"
           >
             {isChecking ? (
               <Loader size="sm" />

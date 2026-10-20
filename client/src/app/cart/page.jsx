@@ -225,7 +225,7 @@ export default function CartPage() {
                     </div>
                   </div>
 
-                  <div className="text-right flex sm:flex-col items-center sm:items-end justify-between sm:justify-start">
+                  <div className="text-left sm:text-right flex sm:flex-col items-center sm:items-end justify-between sm:justify-start w-full sm:w-auto pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-800/80">
                     <span className="text-lg font-black text-brand-400">
                       &#8377;{item.pricing?.totalPrice?.toLocaleString('en-IN')}
                     </span>
@@ -237,10 +237,10 @@ export default function CartPage() {
 
                 {/* Size Distribution Controls (Interactive Matrix) */}
                 <div className="space-y-2">
-                  <div className="flex items-center justify-between text-xs">
+                  <div className="flex flex-col xs:flex-row xs:items-center justify-between gap-1 text-xs">
                     <span className="font-bold text-slate-300">Size Breakdown:</span>
                     <span
-                      className={`text-[11px] font-bold px-2 py-0.5 rounded-lg ${
+                      className={`text-[11px] font-bold px-2 py-0.5 rounded-lg self-start xs:self-auto ${
                         isMoqMet
                           ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
                           : 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
@@ -250,7 +250,7 @@ export default function CartPage() {
                     </span>
                   </div>
 
-                  <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-8 gap-2">
+                  <div className="grid grid-cols-2 xs:grid-cols-4 sm:grid-cols-4 md:grid-cols-8 gap-2">
                     {item.sizeBreakdown?.map((s) => {
                       const isPlus = PLUS_SIZES.has(s.size);
                       return (
@@ -338,8 +338,8 @@ export default function CartPage() {
           })}
         </div>
 
-        {/* Right: Pricing Breakdown & Checkout Preparation CTA (Sticky) */}
-        <div className="lg:col-span-4 sticky top-24 space-y-4">
+        {/* Right: Pricing Breakdown & Checkout Preparation CTA (Sticky on Desktop) */}
+        <div className="lg:col-span-4 lg:sticky lg:top-24 space-y-4">
           <div className="p-6 rounded-3xl bg-slate-900 border border-slate-800 shadow-2xl space-y-6">
             <div className="flex items-center justify-between pb-4 border-b border-slate-800">
               <h3 className="text-sm font-black text-white uppercase tracking-wider">

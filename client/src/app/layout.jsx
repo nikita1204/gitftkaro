@@ -12,6 +12,11 @@ const inter = Inter({
   display: 'swap',
   variable: '--font-inter',
 });
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  themeColor: '#ea580c',
+};
 
 export const metadata = {
   title: 'GIFT KRO — Custom T-Shirts & Express Apparel Printing in Raipur',

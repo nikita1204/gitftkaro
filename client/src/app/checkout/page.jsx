@@ -647,7 +647,7 @@ export default function CheckoutPage() {
         </div>
 
         {/* Right Column: Revalidated Order Summary */}
-        <div className="lg:col-span-4 sticky top-24 space-y-4">
+        <div className="lg:col-span-4 lg:sticky lg:top-24 space-y-4">
           <div className="p-6 rounded-3xl bg-slate-900 border border-slate-800 shadow-2xl space-y-6">
             <div className="flex items-center justify-between pb-4 border-b border-slate-800">
               <h3 className="text-sm font-black text-white uppercase tracking-wider">

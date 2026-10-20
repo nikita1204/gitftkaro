@@ -16,7 +16,7 @@ export const AnnouncementBar = () => {
       aria-label="Promotional announcement"
       className="bg-brand-50 border-b border-brand-200/80 px-4 py-2 text-xs text-stone-700 relative z-50 transition-all duration-300"
     >
-      <div className="max-w-7xl mx-auto flex items-center justify-between gap-3">
+      <div className="w-full max-w-7xl 2xl:max-w-screen-2xl mx-auto flex items-center justify-between gap-3">
         <div className="flex-1 flex items-center justify-center gap-2 text-center">
           <span className="inline-flex items-center gap-1 font-semibold text-brand-700 bg-brand-100 px-2 py-0.5 rounded-full border border-brand-200 text-[11px]">
             <Clock className="h-3 w-3 text-brand-600" /> Raipur Operational Hub

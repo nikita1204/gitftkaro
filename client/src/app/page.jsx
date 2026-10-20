@@ -164,10 +164,10 @@ export default function HomePage() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16 sm:space-y-24 py-6 sm:py-10">
       {/* 1. HERO SECTION */}
-      <section className="bg-white rounded-3xl border border-stone-200/90 p-6 sm:p-10 lg:p-14 shadow-sm relative overflow-hidden">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+      <section className="bg-white rounded-3xl border border-stone-200/90 p-4 sm:p-10 lg:p-14 shadow-sm relative overflow-hidden">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-12 items-center">
           {/* Hero Left Content (7 Cols) */}
-          <div className="lg:col-span-7 space-y-6 text-left">
+          <div className="lg:col-span-7 space-y-5 sm:space-y-6 text-left">
             {/* Operational Location Badge */}
             <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-brand-50 border border-brand-200 text-xs font-semibold text-brand-800">
               <span className="relative flex h-2 w-2">
@@ -178,7 +178,7 @@ export default function HomePage() {
             </div>
 
             {/* Step 3 Headline */}
-            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-stone-900 leading-[1.12]">
+            <h1 className="text-2xl xs:text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-stone-900 leading-[1.12]">
               Your Ideas.{' '}
               <span className="text-brand-500">
                 Custom Printed.
@@ -383,7 +383,7 @@ export default function HomePage() {
       </section>
 
       {/* 4. HOW IT WORKS (4 STEPS) */}
-      <section className="bg-white rounded-3xl p-6 sm:p-10 border border-stone-200 shadow-sm space-y-8">
+      <section className="bg-white rounded-3xl p-5 sm:p-10 border border-stone-200 shadow-sm space-y-6 sm:space-y-8">
         <SectionHeading
           tag="Simple 4-Step Process"
           title="How Custom Printing Works"
@@ -452,7 +452,7 @@ export default function HomePage() {
       </section>
 
       {/* 6. BULK-ORDER CTA (MOQ: 10 PIECES) */}
-      <section className="bg-gradient-to-br from-stone-900 via-stone-900 to-stone-800 rounded-3xl p-8 sm:p-12 text-white shadow-md relative overflow-hidden">
+      <section className="bg-gradient-to-br from-stone-900 via-stone-900 to-stone-800 rounded-3xl p-6 sm:p-12 text-white shadow-md relative overflow-hidden">
         <div className="relative z-10 max-w-2xl space-y-4">
           <div className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-brand-500/20 text-brand-400 border border-brand-500/30 text-xs font-bold">
             <PackageCheck className="h-3.5 w-3.5" />

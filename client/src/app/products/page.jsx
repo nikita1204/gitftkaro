@@ -160,9 +160,9 @@ export default function ProductsPage() {
         </div>
 
         {/* Secondary Filters Bar */}
-        <div className="flex flex-wrap items-center justify-between gap-4 p-3.5 rounded-2xl bg-white border border-stone-200 text-xs shadow-xs">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 rounded-2xl bg-white border border-stone-200 text-xs shadow-xs">
           {/* Size Filter Pills */}
-          <div className="flex items-center space-x-2">
+          <div className="flex flex-wrap items-center gap-2">
             <span className="text-stone-500 font-medium">Filter Size:</span>
             <div className="flex space-x-1">
               <button

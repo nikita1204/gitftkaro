@@ -263,9 +263,9 @@ export default function ProductDetailPage() {
           <div className="pt-2 space-y-3">
             <Link
               href={`/products/${product.slug}/customize`}
-              className="w-full inline-flex items-center justify-center space-x-2 px-6 py-4 rounded-xl text-sm font-black bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-400 hover:to-brand-500 text-slate-950 shadow-xl shadow-brand-500/25 transition-all transform hover:-translate-y-0.5"
+              className="w-full inline-flex items-center justify-center text-center space-x-2 px-4 sm:px-6 py-3.5 sm:py-4 rounded-xl text-xs sm:text-sm font-black bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-400 hover:to-brand-500 text-slate-950 shadow-xl shadow-brand-500/25 transition-all transform hover:-translate-y-0.5 leading-snug"
             >
-              <Sparkles className="h-4 w-4" />
+              <Sparkles className="h-4 w-4 shrink-0" />
               <span>Customize T-Shirt & Calculate Bulk Price (MOQ 10 pcs)</span>
             </Link>
 

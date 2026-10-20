@@ -1,8 +1,7 @@
 'use client';
 
-import React, { useEffect, useCallback, useState } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import {
   X,
   Gift,
@@ -11,7 +10,6 @@ import {
   Users,
   Building2,
   Sparkles,
-  Search,
   User,
   ShieldCheck,
   LogOut,
@@ -64,26 +62,15 @@ const navItems = [
 ];
 
 export const MobileNav = () => {
-  const router = useRouter();
   const dispatch = useAppDispatch();
   const isOpen = useAppSelector((state) => state.ui?.isMobileMenuOpen);
   const { user, isAuthenticated } = useAppSelector((state) => state.auth);
-  const [mobileSearch, setMobileSearch] = useState('');
 
   const isAdmin = user?.role === 'admin';
 
   const handleClose = useCallback(() => {
     dispatch(closeMobileMenu());
   }, [dispatch]);
-
-  const handleSearch = (e) => {
-    e.preventDefault();
-    if (mobileSearch.trim()) {
-      router.push(`/products?search=${encodeURIComponent(mobileSearch.trim())}`);
-      handleClose();
-      setMobileSearch('');
-    }
-  };
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -112,7 +99,7 @@ export const MobileNav = () => {
       role="dialog"
       aria-modal="true"
       aria-label="Mobile Navigation Menu"
-      className="fixed inset-0 z-50 lg:hidden flex justify-end"
+      className="fixed inset-0 z-50 xl:hidden flex justify-end"
     >
       {/* Backdrop */}
       <div
@@ -147,18 +134,6 @@ export const MobileNav = () => {
             <X className="h-5 w-5" />
           </button>
         </div>
-
-        {/* Search Bar in Mobile Menu */}
-        <form onSubmit={handleSearch} className="my-3 relative">
-          <input
-            type="text"
-            placeholder="Search t-shirts & designs..."
-            value={mobileSearch}
-            onChange={(e) => setMobileSearch(e.target.value)}
-            className="w-full bg-stone-50 text-stone-900 placeholder:text-stone-400 text-xs rounded-xl pl-9 pr-4 py-2.5 border border-stone-300 focus:outline-none focus:border-brand-500"
-          />
-          <Search className="h-4 w-4 text-stone-400 absolute left-3 top-3 pointer-events-none" />
-        </form>
 
         {/* User Session Bar */}
         <div className="mb-3 p-3 rounded-2xl bg-stone-50 border border-stone-200">

@@ -47,7 +47,7 @@ export const Footer = () => {
 
   return (
     <footer className="bg-white border-t border-stone-200 mt-20 pt-16 pb-12 text-stone-600">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="w-full max-w-7xl 2xl:max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Trust & Value Pillars */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pb-12 border-b border-stone-200">
           <div className="flex items-start space-x-3.5 p-4 rounded-2xl bg-stone-50 border border-stone-200/80">

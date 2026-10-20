@@ -162,8 +162,8 @@ export default function CustomizationViewPage() {
           <h2 className="text-xs font-black text-slate-200 uppercase tracking-wider">
             Verified Size Breakdown
           </h2>
-          <div className="overflow-x-auto rounded-2xl border border-slate-800">
-            <table className="w-full text-left text-xs">
+          <div className="overflow-x-auto scrollbar-none rounded-2xl border border-slate-800">
+            <table className="w-full text-left text-xs min-w-[480px]">
               <thead className="bg-slate-950 text-slate-400 font-semibold border-b border-slate-800">
                 <tr>
                   <th className="py-2.5 px-4">Size</th>

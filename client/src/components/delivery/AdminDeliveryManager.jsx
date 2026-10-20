@@ -148,11 +148,11 @@ export function AdminDeliveryManager() {
   return (
     <div className="space-y-6">
       {/* Tab Navigation */}
-      <div className="flex items-center justify-between pb-4 border-b border-slate-800">
-        <div className="flex items-center space-x-2">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-800">
+        <div className="flex flex-wrap items-center gap-2">
           <button
             onClick={() => setActiveTab('zones')}
-            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+            className={`px-3 sm:px-4 py-2 rounded-xl text-xs font-bold transition-all ${
               activeTab === 'zones'
                 ? 'bg-brand-500 text-slate-950 shadow-md shadow-brand-500/20'
                 : 'bg-slate-900 text-slate-400 hover:text-white border border-slate-800'
@@ -162,7 +162,7 @@ export function AdminDeliveryManager() {
           </button>
           <button
             onClick={() => setActiveTab('rules')}
-            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+            className={`px-3 sm:px-4 py-2 rounded-xl text-xs font-bold transition-all ${
               activeTab === 'rules'
                 ? 'bg-brand-500 text-slate-950 shadow-md shadow-brand-500/20'
                 : 'bg-slate-900 text-slate-400 hover:text-white border border-slate-800'
@@ -177,6 +177,7 @@ export function AdminDeliveryManager() {
             size="sm"
             onClick={() => setShowAddZoneModal(true)}
             leftIcon={<Plus className="w-3.5 h-3.5" />}
+            className="self-start sm:self-auto shrink-0"
           >
             Add New PIN Code
           </Button>
@@ -211,8 +212,8 @@ export function AdminDeliveryManager() {
                 <Loader size="md" text="Loading serviceable PIN codes..." />
               </div>
             ) : (
-              <div className="overflow-x-auto">
-                <table className="w-full text-left text-xs">
+              <div className="overflow-x-auto scrollbar-none">
+                <table className="w-full text-left text-xs min-w-[640px]">
                   <thead className="bg-slate-950/60 text-slate-400 uppercase text-[10px] tracking-wider border-b border-slate-800">
                     <tr>
                       <th className="py-3 px-4">PIN Code</th>

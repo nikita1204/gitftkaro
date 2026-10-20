@@ -614,8 +614,8 @@ function AdminDashboardContent() {
                 <p className="text-xs">Adjust your search query or status filter.</p>
               </div>
             ) : (
-              <div className="overflow-x-auto">
-                <table className="w-full text-left text-xs">
+              <div className="overflow-x-auto scrollbar-none">
+                <table className="w-full text-left text-xs min-w-[700px]">
                   <thead className="bg-slate-950/80 text-slate-400 uppercase text-[10px] tracking-wider border-b border-slate-800">
                     <tr>
                       <th className="py-3.5 px-4 font-semibold">Order Number</th>
@@ -870,8 +870,8 @@ function AdminDashboardContent() {
                 <Loader size="md" text="Loading product catalogue..." />
               </div>
             ) : (
-              <div className="overflow-x-auto">
-                <table className="w-full text-left text-xs">
+              <div className="overflow-x-auto scrollbar-none">
+                <table className="w-full text-left text-xs min-w-[650px]">
                   <thead className="bg-slate-950/80 text-slate-400 uppercase text-[10px] tracking-wider border-b border-slate-800">
                     <tr>
                       <th className="py-3 px-4 font-semibold">Product Name</th>
@@ -988,8 +988,8 @@ function AdminDashboardContent() {
             ) : auditLogs.length === 0 ? (
               <div className="p-12 text-center text-slate-500">No audit log entries recorded yet.</div>
             ) : (
-              <div className="overflow-x-auto">
-                <table className="w-full text-left text-xs">
+              <div className="overflow-x-auto scrollbar-none">
+                <table className="w-full text-left text-xs min-w-[650px]">
                   <thead className="bg-slate-950/80 text-slate-400 uppercase text-[10px] tracking-wider border-b border-slate-800">
                     <tr>
                       <th className="py-3.5 px-4 font-semibold">Timestamp</th>
