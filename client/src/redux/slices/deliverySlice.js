@@ -5,8 +5,7 @@ export const checkDeliveryEligibility = createAsyncThunk(
   'delivery/checkEligibility',
   async (params, { rejectWithValue }) => {
     try {
-      const res = await deliveryService.checkEligibility(params);
-      return res.data;
+      return await deliveryService.checkEligibility(params);
     } catch (err) {
       return rejectWithValue(err.message || 'Failed to check delivery eligibility');
     }
@@ -17,8 +16,7 @@ export const fetchServiceablePincodes = createAsyncThunk(
   'delivery/fetchServiceablePincodes',
   async (_, { rejectWithValue }) => {
     try {
-      const res = await deliveryService.getServiceablePincodes();
-      return res.data;
+      return await deliveryService.getServiceablePincodes();
     } catch (err) {
       return rejectWithValue(err.message || 'Failed to fetch serviceable PIN codes');
     }
@@ -29,8 +27,7 @@ export const fetchDeliveryConfig = createAsyncThunk(
   'delivery/fetchDeliveryConfig',
   async (_, { rejectWithValue }) => {
     try {
-      const res = await deliveryService.getConfig();
-      return res.data;
+      return await deliveryService.getConfig();
     } catch (err) {
       return rejectWithValue(err.message || 'Failed to fetch delivery settings');
     }
@@ -41,8 +38,7 @@ export const updateDeliveryConfig = createAsyncThunk(
   'delivery/updateDeliveryConfig',
   async (configData, { rejectWithValue }) => {
     try {
-      const res = await deliveryService.updateConfig(configData);
-      return res.data;
+      return await deliveryService.updateConfig(configData);
     } catch (err) {
       return rejectWithValue(err.message || 'Failed to update delivery settings');
     }
@@ -53,8 +49,7 @@ export const fetchAllZones = createAsyncThunk(
   'delivery/fetchAllZones',
   async (_, { rejectWithValue }) => {
     try {
-      const res = await deliveryService.getAllZones();
-      return res.data;
+      return await deliveryService.getAllZones();
     } catch (err) {
       return rejectWithValue(err.message || 'Failed to fetch delivery zones');
     }
@@ -65,8 +60,7 @@ export const createDeliveryZone = createAsyncThunk(
   'delivery/createDeliveryZone',
   async (zoneData, { rejectWithValue }) => {
     try {
-      const res = await deliveryService.createZone(zoneData);
-      return res.data;
+      return await deliveryService.createZone(zoneData);
     } catch (err) {
       return rejectWithValue(err.message || 'Failed to create delivery zone');
     }
@@ -77,8 +71,7 @@ export const toggleDeliveryZone = createAsyncThunk(
   'delivery/toggleDeliveryZone',
   async (id, { rejectWithValue }) => {
     try {
-      const res = await deliveryService.toggleZoneStatus(id);
-      return res.data;
+      return await deliveryService.toggleZoneStatus(id);
     } catch (err) {
       return rejectWithValue(err.message || 'Failed to toggle zone status');
     }
@@ -149,10 +142,11 @@ const deliverySlice = createSlice({
       })
       .addCase(fetchServiceablePincodes.fulfilled, (state, action) => {
         state.isLoadingPincodes = false;
-        state.serviceablePincodes = action.payload;
+        state.serviceablePincodes = Array.isArray(action.payload) ? action.payload : [];
       })
       .addCase(fetchServiceablePincodes.rejected, (state) => {
         state.isLoadingPincodes = false;
+        state.serviceablePincodes = state.serviceablePincodes || [];
       })
 
       // Fetch Config
@@ -179,28 +173,36 @@ const deliverySlice = createSlice({
       })
       .addCase(fetchAllZones.fulfilled, (state, action) => {
         state.isLoadingZones = false;
-        state.zones = action.payload;
+        state.zones = Array.isArray(action.payload) ? action.payload : [];
       })
       .addCase(fetchAllZones.rejected, (state, action) => {
         state.isLoadingZones = false;
+        state.zones = state.zones || [];
         state.adminError = action.payload;
       })
 
       // Create Zone
       .addCase(createDeliveryZone.fulfilled, (state, action) => {
-        state.zones.push(action.payload);
+        if (!Array.isArray(state.zones)) state.zones = [];
+        if (action.payload) {
+          state.zones.push(action.payload);
+        }
       })
 
       // Toggle Zone
       .addCase(toggleDeliveryZone.fulfilled, (state, action) => {
-        const index = state.zones.findIndex((z) => z._id === action.payload._id);
-        if (index !== -1) {
-          state.zones[index] = action.payload;
+        if (!Array.isArray(state.zones)) state.zones = [];
+        if (action.payload?._id) {
+          const index = state.zones.findIndex((z) => z._id === action.payload._id);
+          if (index !== -1) {
+            state.zones[index] = action.payload;
+          }
         }
       })
 
       // Delete Zone
       .addCase(deleteDeliveryZone.fulfilled, (state, action) => {
+        if (!Array.isArray(state.zones)) state.zones = [];
         state.zones = state.zones.filter((z) => z._id !== action.payload);
       });
   },

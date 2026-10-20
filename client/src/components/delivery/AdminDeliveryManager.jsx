@@ -30,9 +30,10 @@ import { Loader } from '@/components/ui/Loader.jsx';
 
 export function AdminDeliveryManager() {
   const dispatch = useAppDispatch();
-  const { config, isLoadingConfig, zones, isLoadingZones, isMutatingZone } = useAppSelector(
-    (state) => state.delivery
+  const { config, isLoadingConfig, zones: rawZones, isLoadingZones, isMutatingZone } = useAppSelector(
+    (state) => state.delivery || {}
   );
+  const zones = Array.isArray(rawZones) ? rawZones : [];
 
   const [activeTab, setActiveTab] = useState('zones'); // 'zones' | 'rules'
   const [configForm, setConfigForm] = useState({
