@@ -34,18 +34,30 @@ app.use(
   })
 );
 
-// 3. Strict CORS Configuration
+// 3. Dynamic & Secure CORS Configuration
 app.use(
   cors({
     origin: (origin, callback) => {
+      // Allow requests with no origin (e.g., curl, mobile probes, server-to-server)
+      if (!origin) return callback(null, true);
+
+      const cleanOrigin = origin.replace(/\/+$/, '');
+      const configuredClient = env.CLIENT_URL ? env.CLIENT_URL.replace(/\/+$/, '') : '';
+
       const allowedOrigins = [
-        env.CLIENT_URL,
+        configuredClient,
         'http://localhost:3000',
         'http://localhost:3001',
         'http://localhost:5173',
       ];
-      // Allow requests with no origin (e.g., curl, mobile probes, server-to-server) in development
-      if (!origin || allowedOrigins.includes(origin)) {
+
+      // Allow configured origins or any onrender.com / vercel.app deployment
+      const isAllowed =
+        allowedOrigins.includes(cleanOrigin) ||
+        /^https:\/\/.*\.onrender\.com$/.test(cleanOrigin) ||
+        /^https:\/\/.*\.vercel\.app$/.test(cleanOrigin);
+
+      if (isAllowed) {
         callback(null, true);
       } else {
         callback(new Error(`CORS blocked for origin: ${origin}`));
